@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leitor de QR Code com html5-qrcode</title>
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+</head>
+<body>
+    <h1>Leitor de QR Code</h1>
+    <div style="width: 500px" id="reader"></div>
+    <div id="result"></div>
+
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            // Lida com o resultado do QR code lido com sucesso.
+            console.log(`Code matched = ${decodedText}`, decodedResult);
+            document.getElementById('result').innerHTML = `Resultado: <a href="${decodedText}">${decodedText}</a>`;
+        }
+
+        function onScanFailure(error) {
+            // Lida com falhas na leitura (opcional).
+            // console.warn(`Code scan error = ${error}`);
+        }
+
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader",
+            { fps: 10, qrbox: {width: 250, height: 250} },
+            /* verbose= */ false);
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    </script>
+</body>
+</html>
